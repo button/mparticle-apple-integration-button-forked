@@ -17,6 +17,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@import ButtonMerchant;
 
 //! Project version number for mParticle-Button.
 FOUNDATION_EXPORT double mParticle_ButtonVersionNumber;
