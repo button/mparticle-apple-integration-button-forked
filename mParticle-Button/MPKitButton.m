@@ -1,7 +1,7 @@
 //
 //  MPKitButton.m
 //
-//  Copyright 2016 Button, Inc.
+//  Copyright 2018 Button, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -17,13 +17,10 @@
 //
 
 #import "MPKitButton.h"
-#include <sys/types.h>
-#include <sys/sysctl.h>
 
 @import ButtonMerchant;
-@import AdSupport.ASIdentifierManager;
 
-static NSString * const BTNMPKitVersion = @"1.0.0";
+static NSString * const BTNMPKitVersion = @"2.0.0";
 
 static NSString * const BTNReferrerTokenDefaultsKey   = @"com.usebutton.referrer";
 static NSString * const BTNLinkFetchStatusDefaultsKey = @"com.usebutton.link.fetched";
@@ -49,7 +46,6 @@ NSString * const MPKitButtonIntegrationAttribution = @"com.usebutton.source_toke
 - (NSString *)attributionToken {
     return ButtonMerchant.attributionToken;
 }
-
 
 @end
 
@@ -143,12 +139,9 @@ NSString * const MPKitButtonIntegrationAttribution = @"com.usebutton.source_toke
 
 - (void)checkForAttribution {
     [ButtonMerchant handlePostInstallURL:^(NSURL * _Nullable postInstallURL, NSError * _Nullable error) {
-        if (error) {
+        if (error || !postInstallURL) {
             NSError *attributionError = [self errorWithMessage:@"No attribution information available."];
             [self->_kitApi onAttributionCompleteWithResult:nil error:attributionError];
-            return;
-        }
-        if (!postInstallURL) {
             return;
         }
         NSDictionary *linkInfo = @{ BTNPostInstallURLKey: postInstallURL};
@@ -157,6 +150,5 @@ NSString * const MPKitButtonIntegrationAttribution = @"com.usebutton.source_toke
         [self->_kitApi onAttributionCompleteWithResult:attributionResult error:nil];
     }];
 }
-
 
 @end
