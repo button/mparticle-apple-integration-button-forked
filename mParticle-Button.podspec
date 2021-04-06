@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
     s.ios.deployment_target = "9.0"
     s.ios.source_files      = 'mParticle-Button/*.{h,m,mm}'
-    s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 8.0-beta'
+    s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 8'
     s.ios.dependency 'ButtonMerchant', '~> 1.0'
     s.swift_version = '4.1'
 end
